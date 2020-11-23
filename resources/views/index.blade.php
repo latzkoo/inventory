@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ config('app.locale') }}" class="h-100">
 <head>
 <title>@isset($meta){{ $meta->getTitle() }}@else {{ config('app.name') }}@endisset</title>
 <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" href="{{ config('app.url') }}/favicon-96x96.png" sizes="96x96">
 </head>
 
-<body>
+<body class="d-flex flex-column h-100 bg-light">
 @include('layouts.header')
 @yield('content')
 @include('layouts.footer')

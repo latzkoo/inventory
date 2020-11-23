@@ -17,9 +17,6 @@ class Controller extends BaseController
     {
         $this->middleware(function ($request, $next) {
 
-//            $language = Config::get('app.locale');
-//
-//            $this->data['language'] = $language;
 //            $this->data['menus'] = (new Menu)->get($language);
 
             return $next($request);

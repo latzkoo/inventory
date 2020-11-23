@@ -1,7 +1,7 @@
 @extends('index')
 
 @section('content')
-<main>
+<main role="main" class="flex-shrink-0">
 
 </main>
 @endsection

@@ -2,7 +2,8 @@ let mix = require('laravel-mix');
 
 mix.sass('resources/sass/app.scss', 'public/css')
 	.scripts([
-		'~/jquery/dist/jquery.js',
+		'node_modules/jquery/dist/jquery.js',
+		'node_modules/bootstrap/dist/js/bootstrap.js',
 		'resources/js/numeric.js',
 		'resources/js/app.js'
 	], 'public/js/app.js')

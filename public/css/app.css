@@ -1,11 +1,6 @@
-/*!
- * Bootstrap v4.5.3 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+@import url(https://fonts.googleapis.com/css2?family=Roboto:wght@400;
 
-:root {
+500;700&display=swap);:root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -11962,5 +11957,184 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  color: #343a40;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.row {
+  margin: 0;
+  clear: both;
+}
+
+@media (min-width: 576px) {
+  .container,
+  .container-md,
+  .container-sm {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container,
+  .container-md,
+  .container-sm {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl {
+    max-width: 1200px;
+  }
+}
+
+section.login .container {
+  max-width: 400px;
+}
+
+.table-sm td,
+.table-sm th {
+  padding: 0.5rem;
+}
+
+.table-hover tbody tr:hover {
+  color: #212529;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.text-secondary {
+  color: #212529 !important;
+}
+
+.btn-operations-small {
+  padding: 0 4px !important;
+}
+
+span.text-label,
+.link-operation {
+  margin-top: 3px;
+  float: left;
+}
+
+.operations {
+  float: right;
+}
+
+.operations a:hover {
+  text-decoration: none;
+}
+
+.operations button {
+  border-radius: 50%;
+}
+
+.fix150 {
+  width: 150px;
+}
+
+.admin-list-items {
+  margin-top: 8px;
+}
+
+.button-add-new {
+  float: right;
+}
+
+h3 a {
+  color: #343a40 !important;
+}
+
+h3 a:hover {
+  text-decoration: none;
+}
+
+.form-buttons a {
+  text-decoration: none;
+}
+
+header {
+  background: #343a40;
+}
+
+header a {
+  color: #fff;
+}
+
+header a:hover {
+  color: #007bff;
+}
+
+header .container-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+header nav.navbar a.navbar-brand,
+.brand {
+  font-weight: 500;
+  font-size: 20px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.brand {
+  color: #343a40;
+  font-size: 30px;
+}
+
+header nav.navbar a.navbar-brand span,
+.brand span {
+  background: #007bff;
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+  margin-right: 3px;
+}
+
+.brand span {
+  background: #007bff;
+  color: #fff;
+}
+
+header nav.navbar .navbar-toggler-icon {
+  background-image: url(/images/menu.svg?feda2af4587b970b828011f011aa4f75);
+  background-size: 30px 30px;
+}
+
+.dropdown-toggle::after {
+  position: absolute;
+  margin-top: 9px;
+  margin-left: 5px;
+}
+
+footer {
+  background: #343a40;
+  color: #fff;
+}
+
+footer a {
+  color: #fff;
+}
+
+footer a:hover {
+  color: #fff;
+}
+
+footer .container-footer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
