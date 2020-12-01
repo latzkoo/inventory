@@ -15358,6 +15358,8 @@ jQuery.fn.numeric = function(a, b) {
 };
 $(window).bind("load", function () {
 
+    $(".numeric").numeric();
+
     $(".button-delete").on("click", function() {
         let href = $(this).data("href");
         $("#link-delete").attr("href", href);
@@ -15366,6 +15368,10 @@ $(window).bind("load", function () {
             show: true,
             keyboard: false
         });
+    });
+
+    $('form').on("submit", function() {
+        $("button[type=submit]", $(this)).attr("disabled", "disabled");
     });
 
 });

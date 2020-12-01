@@ -15,14 +15,59 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     Route::group(['prefix' => 'cikkek'], function () {
+        Route::get('/add', [
+            'uses' => 'ProductController@create',
+            'as' => 'product.create'
+        ]);
+        Route::post('/update/{id}', [
+            'uses' => 'ProductController@update',
+            'as' => 'product.update'
+        ]);
+        Route::get('/edit/{id}', [
+            'uses' => 'ProductController@edit',
+            'as' => 'product.edit'
+        ]);
+        Route::get('/delete/{id}', [
+            'uses' => 'ProductController@delete',
+            'as' => 'product.delete'
+        ]);
+        Route::post('/', [
+            'uses' => 'ProductController@insert',
+            'as' => 'product.insert'
+        ]);
         Route::get('/', [
-            'uses' => 'ProductController@get'
+            'uses' => 'ProductController@get',
+            'as' => 'product.list'
         ]);
     });
 
+    /**
+     * Raktárak
+     */
     Route::group(['prefix' => 'raktarak'], function () {
+        Route::get('/add', [
+            'uses' => 'InventoryController@create',
+            'as' => 'inventory.create'
+        ]);
+        Route::post('/update/{id}', [
+            'uses' => 'InventoryController@update',
+            'as' => 'inventory.update'
+        ]);
+        Route::get('/edit/{id}', [
+            'uses' => 'InventoryController@edit',
+            'as' => 'inventory.edit'
+        ]);
+        Route::get('/delete/{id}', [
+            'uses' => 'InventoryController@delete',
+            'as' => 'inventory.delete'
+        ]);
+        Route::post('/', [
+            'uses' => 'InventoryController@insert',
+            'as' => 'inventory.insert'
+        ]);
         Route::get('/', [
-            'uses' => 'InventoryController@get'
+            'uses' => 'InventoryController@get',
+            'as' => 'inventory.list'
         ]);
     });
 
@@ -38,30 +83,45 @@ Route::group(['middleware' => 'auth'], function () {
         ]);
     });
 
+    /**
+     * Felhasználók
+     */
     Route::group(['prefix' => 'felhasznalok'], function () {
 
-        Route::post('/update', [
-            'uses' => 'UserController@update'
-        ]);
         Route::get('/add', [
-            'uses' => 'UserController@create'
+            'uses' => 'UserController@create',
+            'as' => 'user.create'
         ]);
-        Route::get('/edit', [
-            'uses' => 'UserController@edit'
+        Route::post('/update/{id}', [
+            'uses' => 'UserController@update',
+            'as' => 'user.update'
+        ]);
+        Route::get('/edit/{id}', [
+            'uses' => 'UserController@edit',
+            'as' => 'user.edit'
         ]);
         Route::get('/delete/{id}', [
-            'uses' => 'UserController@delete'
+            'uses' => 'UserController@delete',
+            'as' => 'user.delete'
         ]);
         Route::post('/', [
-            'uses' => 'UserController@insert'
+            'uses' => 'UserController@insert',
+            'as' => 'user.insert'
         ]);
         Route::get('/', [
-            'uses' => 'UserController@get'
+            'uses' => 'UserController@get',
+            'as' => 'user.list'
         ]);
     });
 
     Route::get('/jelszomodositas', [
-        'uses' => 'UserController@updatePassword'
+        'uses' => 'UserController@editPassword',
+        'as' => 'user.password.edit'
+    ]);
+
+    Route::post('/jelszomodositas', [
+        'uses' => 'UserController@updatePassword',
+        'as' => 'user.password.update'
     ]);
 
     Route::get('/adatmodositas', [

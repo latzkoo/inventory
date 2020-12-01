@@ -54,17 +54,59 @@ class User extends Authenticatable
         return $users;
     }
 
-    public function insert(Request &$request)
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function insertUser(Request &$request)
     {
         return DB::insert("INSERT INTO felhasznalo (vezeteknev, keresztnev, email, jelszo) VALUES (?, ?, ?, ?)",
             [$request->post("vezeteknev"), $request->post("keresztnev"),
              $request->post("email"), Hash::make($request->post("jelszo"))]);
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return bool|int
+     */
+    public function updateUser(Request &$request, int $id)
+    {
+        return DB::update("UPDATE felhasznalo SET vezeteknev=?, keresztnev=?, email=? WHERE felhasznaloID=".$id,
+            [$request->post("vezeteknev"), $request->post("keresztnev"), $request->post("email")]);
+    }
 
+    /**
+     * @param int $id
+     */
     public function deleteById(int $id): void
     {
-        self::where("felhasznaloID", $id)->delete();
+        DB::delete("DELETE FROM felhasznalo WHERE felhasznaloID=?", [$id]);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function getById(int $id)
+    {
+        $results = DB::select('SELECT * FROM felhasznalo WHERE felhasznaloID=?', [$id]);
+
+        if ($results)
+            return $results[0];
+
+        return null;
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return int
+     */
+    public function updatePassword(Request $request, int $id)
+    {
+        return DB::update("UPDATE felhasznalo SET jelszo=? WHERE felhasznaloID=?",
+            [Hash::make($request->post("new_jelszo")), $id]);
     }
 
 }

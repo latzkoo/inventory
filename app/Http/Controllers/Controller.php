@@ -16,9 +16,6 @@ class Controller extends BaseController
     public function __construct()
     {
         $this->middleware(function ($request, $next) {
-
-//            $this->data['menus'] = (new Menu)->get($language);
-
             return $next($request);
         });
     }

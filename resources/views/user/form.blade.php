@@ -6,10 +6,10 @@
             <div class="container m-auto">
                 <div class="row">
                     <div class="col-12 p-0"><h3><a href="/felhasznalok">Felhasználók</a> ›
-                            <span class="small">új hozzáadása</span></h3></div>
+                            <span class="small">@if(isset($content->email)) módosítás @else új hozzáadása @endif</span></h3></div>
                 </div>
 
-                <form action="/felhasznalok" method="post">
+                <form action="@isset($content){{ route('user.update', array_merge(["id" => $content->felhasznaloID], Request::query()), false) }}@else{{ route('user.insert', Request::query(), false) }}@endisset" method="post" autocomplete="off">
                     @csrf
 
                     <div class="container bg-white rounded shadow-sm p-3">
@@ -21,32 +21,53 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-3 pr-2">
                                         <label for="vezeteknev">Vezetéknév</label>
-                                        <input type="text" class="form-control" id="vezeteknev" name="vezeteknev"
-                                               placeholder="" required="required" />
+                                        <input type="text" class="form-control" id="vezeteknev" name="vezeteknev" required="required"
+                                               value="@if(old('vezeteknev')){{old('vezeteknev')}}@elseif(isset($content->vezeteknev)){{$content->vezeteknev}}@endif" />
+                                        @if ($errors->has('vezeteknev'))
+                                        <label class="col-red mt-1 text-danger"
+                                               for="currency_name">{{ $errors->first('vezeteknev') }}</label>
+                                        @endif
                                     </div>
                                     <div class="form-group col-md-3 px-2">
                                         <label for="keresztnev">Keresztnév</label>
-                                        <input type="text" class="form-control" id="keresztnev" name="keresztnev"
-                                               placeholder="" required="required" />
+                                        <input type="text" class="form-control" id="keresztnev" name="keresztnev" required="required"
+                                               value="@if(old('keresztnev')){{old('keresztnev')}}@elseif(isset($content->keresztnev)){{$content->keresztnev}}@endif" />
+                                        @if ($errors->has('keresztnev'))
+                                            <label class="col-red mt-1 text-danger"
+                                                   for="currency_name">{{ $errors->first('keresztnev') }}</label>
+                                        @endif
                                     </div>
                                     <div class="form-group col-md-6 pl-2">
                                         <label for="email">E-mail</label>
-                                        <input type="email" class="form-control" id="email" name="email"
-                                               placeholder="" required="required" />
+                                        <input type="email" class="form-control" id="email" name="email" required="required"
+                                               value="@if(old('email')){{old('email')}}@elseif(isset($content->email)){{$content->email}}@endif" />
+                                        @if ($errors->has('email'))
+                                            <label class="col-red mt-1 text-danger"
+                                                   for="currency_name">{{ $errors->first('email') }}</label>
+                                        @endif
                                     </div>
                                 </div>
+                                @if(!isset($content))
                                 <div class="form-row">
                                     <div class="form-group col-md-6 pr-2">
                                         <label for="jelszo">Jelszó</label>
-                                        <input type="password" class="form-control" id="jelszo" name="jelszo"
-                                               placeholder="" required="required" min="6" />
+                                        <input type="password" class="form-control" id="jelszo" name="jelszo" required="required" />
+                                        @if ($errors->has('jelszo'))
+                                            <label class="col-red mt-1 text-danger"
+                                                   for="currency_name">{{ $errors->first('jelszo') }}</label>
+                                        @endif
                                     </div>
                                     <div class="form-group col-md-6 px-2">
                                         <label for="confirm_jelszo">Jelszó újra</label>
-                                        <input type="password" class="form-control" id="confirm_jelszo" name="keresztnev"
-                                               placeholder="" required="required" />
+                                        <input type="password" class="form-control" id="confirm_jelszo"
+                                               name="jelszo_confirmation" required="required" />
+                                        @if ($errors->has('jelszo'))
+                                            <label class="col-red mt-1 text-danger"
+                                                   for="currency_name">{{ $errors->first('jelszo') }}</label>
+                                        @endif
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
 
@@ -60,19 +81,12 @@
 {{--                                        </div>--}}
 {{--                                    </div>--}}
 {{--                                </div>--}}
-
-{{--                                <div class="form-group">--}}
-{{--                                    <div class="row mb-2">Kép kiválasztása</div>--}}
-{{--                                    <div class="custom-file">--}}
-{{--                                        <input type="file" class="custom-file-input" id="customFile" accept="image/jpg,image/jpeg">--}}
-{{--                                        <label class="custom-file-label" for="customFile">Kép kiválasztása</label>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                     </div>
 
                     <div class="row mt-4 p-0 px-md-2 form-buttons">
                         <div class="col-6 col-md-3 col-lg-2 p-0 pr-2 px-md-2">
-                            <button type="submit" class="btn btn-primary form-main-button btn-block px-4">Hozzáadás</button>
+                            <button type="submit" class="btn btn-primary form-main-button btn-block px-4">
+                                <?=isset($content) ? 'Módosítás' : 'Hozzáadás' ?></button>
                         </div>
                         <div class="col-6 col-md-3 col-lg-2 p-0 pl-2 px-md-2">
                             <a href="/felhasznalok">
