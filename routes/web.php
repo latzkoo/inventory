@@ -14,6 +14,39 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'Auth\LoginController@logout'
     ]);
 
+    /**
+     * Beszerzés
+     */
+    Route::group(['prefix' => 'beszerzes'], function () {
+        Route::get('/add', [
+            'uses' => 'PurchaseController@create',
+            'as' => 'purchase.create'
+        ]);
+        Route::post('/update/{id}', [
+            'uses' => 'PurchaseController@update',
+            'as' => 'purchase.update'
+        ]);
+        Route::get('/edit/{id}', [
+            'uses' => 'PurchaseController@edit',
+            'as' => 'purchase.edit'
+        ]);
+        Route::get('/delete/{id}', [
+            'uses' => 'PurchaseController@delete',
+            'as' => 'purchase.delete'
+        ]);
+        Route::post('/', [
+            'uses' => 'PurchaseController@insert',
+            'as' => 'purchase.insert'
+        ]);
+        Route::get('/', [
+            'uses' => 'PurchaseController@get',
+            'as' => 'purchase'
+        ]);
+    });
+
+    /**
+     * Partnerek
+     */
     Route::group(['prefix' => 'partnerek'], function () {
         Route::get('/add', [
             'uses' => 'PartnerController@create',
@@ -57,6 +90,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/delete/{id}', [
             'uses' => 'ProductController@delete',
             'as' => 'product.delete'
+        ]);
+        Route::get('/get/{id}', [
+            'uses' => 'ProductController@getById',
+            'as' => 'product.get'
+        ]);
+        Route::post('/item', [
+            'uses' => 'ProductController@getNewItem',
+            'as' => 'purchase.newitem'
         ]);
         Route::post('/', [
             'uses' => 'ProductController@insert',

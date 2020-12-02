@@ -3,6 +3,8 @@
 
 namespace App;
 
+use DateTime;
+
 class Util
 {
 
@@ -12,6 +14,11 @@ class Util
             $number = number_format($number, 0, ',', ' ');
 
         return $number;
+    }
+
+    public static function createIdNumber(string $type)
+    {
+        return $type.(new DateTime())->format("YmdHisv");
     }
 
 }

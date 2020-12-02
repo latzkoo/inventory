@@ -20,19 +20,21 @@ class Product extends Model
 
     /**
      * @param Request $request
-     * @return Collection
+     * @param array|null $except
+     * @return array
      */
-    public function getList(Request &$request): Collection
+    public function getList(Request &$request): array
     {
-        $result = self::orderBy("megnevezes", "ASC");
+        $sql = "SELECT * FROM cikk ";
 
-        if ($request->get("q"))
-            $result->where("termekkod", "LIKE", "%{$request->q}%");
-            $result->orWhere("megnevezes", "LIKE", "%{$request->q}%");
+        if ($request->get("q")) {
+            $sql .= " WHERE (termekkod LIKE '%".$request->get("q")."%'
+                      OR megnevezes LIKE '%".$request->get("q")."%')";
+        }
 
-        $products = $result->get();
+        $sql .= " ORDER BY megnevezes, termekkod ASC";
 
-        return $products;
+        return DB::select($sql);
     }
 
     /**

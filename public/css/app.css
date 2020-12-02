@@ -12062,6 +12062,11 @@ h3 a:hover {
   text-decoration: none;
 }
 
+.button-delete-item {
+  margin: 35px 0 0 0;
+  float: right;
+}
+
 header {
   background: #343a40;
 }
