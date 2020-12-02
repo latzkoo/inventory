@@ -14,6 +14,33 @@ Route::group(['middleware' => 'auth'], function () {
         'uses' => 'Auth\LoginController@logout'
     ]);
 
+    Route::group(['prefix' => 'partnerek'], function () {
+        Route::get('/add', [
+            'uses' => 'PartnerController@create',
+            'as' => 'partner.create'
+        ]);
+        Route::post('/update/{id}', [
+            'uses' => 'PartnerController@update',
+            'as' => 'partner.update'
+        ]);
+        Route::get('/edit/{id}', [
+            'uses' => 'PartnerController@edit',
+            'as' => 'partner.edit'
+        ]);
+        Route::get('/delete/{id}', [
+            'uses' => 'PartnerController@delete',
+            'as' => 'partner.delete'
+        ]);
+        Route::post('/', [
+            'uses' => 'PartnerController@insert',
+            'as' => 'partner.insert'
+        ]);
+        Route::get('/', [
+            'uses' => 'PartnerController@get',
+            'as' => 'partner.list'
+        ]);
+    });
+
     Route::group(['prefix' => 'cikkek'], function () {
         Route::get('/add', [
             'uses' => 'ProductController@create',

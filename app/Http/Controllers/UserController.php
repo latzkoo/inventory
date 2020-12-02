@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Meta;
 use App\Rules\Email;
 use App\Rules\OldPassword;
-use App\User;
+use App\Model\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;

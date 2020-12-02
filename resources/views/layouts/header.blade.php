@@ -13,6 +13,7 @@
                     <li class="nav-item ml-md-3"><a class="nav-link" href="/beszerzes">Beszerzés</a></li>
                     <li class="nav-item ml-md-3"><a class="nav-link" href="/cikkek">Cikkek</a></li>
                     <li class="nav-item ml-md-3"><a class="nav-link" href="/raktarak">Raktárak</a></li>
+                    <li class="nav-item ml-md-3"><a class="nav-link" href="/partnerek">Partnerek</a></li>
                     <li class="nav-item ml-md-3"><a class="nav-link" href="/felhasznalok">Felhasználók</a></li>
                     <li class="nav-item dropdown ml-md-3">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown"
