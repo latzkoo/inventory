@@ -7,6 +7,7 @@ use App\Model\Partner;
 use App\Model\Product;
 use App\Model\Movement;
 use App\Model\Meta;
+use App\Rules\MovementItemRule;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -16,16 +17,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
-class PurchaseController extends Controller
+class SaleController extends Controller
 {
     private $movement;
     private $inventory;
     private $partner;
     private $product;
-    private $movementType = "BEVET";
+    private $movementType = "KIADAS";
 
     /**
-     * PurchaseController constructor.
+     * movementController constructor.
      */
     public function __construct()
     {
@@ -45,7 +46,7 @@ class PurchaseController extends Controller
 	    $this->data["meta"] = new Meta();
 	    $this->data["movements"] = $this->movement->getList($request, $this->movementType);
 
-		return view('purchase.list', $this->data);
+		return view('sale.list', $this->data);
 	}
 
     /**
@@ -59,7 +60,7 @@ class PurchaseController extends Controller
         $this->data["inventories"] = $this->inventory->getList($request);
         $this->data["products"] = $this->product->getList($request);
 
-        return view('purchase.form', $this->data);
+        return view('sale.form', $this->data);
     }
 
     /**
@@ -76,7 +77,7 @@ class PurchaseController extends Controller
         $this->data["inventories"] = $this->inventory->getList($request);
         $this->data["products"] = $this->product->getList($request);
 
-        return view('purchase.form', $this->data);
+        return view('sale.form', $this->data);
     }
 
     /**
@@ -87,7 +88,8 @@ class PurchaseController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'partnerID' => 'required|max:50|exists:partner,partnerID',
-            'raktarID' => 'required|max:50|exists:raktar,raktarID'
+            'raktarID' => 'required|max:50|exists:raktar,raktarID',
+            'cikkID' => ['required', new MovementItemRule($request)]
         ]);
 
         if ($validator->fails())
@@ -95,7 +97,7 @@ class PurchaseController extends Controller
 
         $this->movement->addMovement($request, $this->movementType, Auth::user()->felhasznaloID);
 
-        return redirect('/beszerzes');
+        return redirect('/ertekesites');
     }
 
     /**
@@ -106,8 +108,7 @@ class PurchaseController extends Controller
     public function update(Request $request, int $id)
     {
         $validator = Validator::make($request->all(), [
-            'partnerID' => 'required|max:50|exists:partner,partnerID',
-            'raktarID' => 'required|max:50|exists:raktar,raktarID'
+            'cikkID' => ['required', new MovementItemRule($request, $id)]
         ]);
 
         if ($validator->fails())
@@ -115,7 +116,7 @@ class PurchaseController extends Controller
 
         $this->movement->setMovement($request, $this->movementType, $id);
 
-        return redirect('/beszerzes');
+        return redirect('/ertekesites');
     }
 
     /**
@@ -126,7 +127,7 @@ class PurchaseController extends Controller
     {
         $this->data["products"] = $this->product->getList($request);
 
-        return view('purchase.newitem', $this->data);
+        return view('sale.newitem', $this->data);
     }
 
     /**
@@ -137,7 +138,7 @@ class PurchaseController extends Controller
     {
         $this->movement->deleteMovement($id, $this->movementType);
 
-        return redirect('/beszerzes');
+        return redirect('/ertekesites');
     }
 
 }

@@ -15378,6 +15378,7 @@ $(window).bind("load", function () {
         let id = $(this).val();
         let row = $(this).closest('.movement-item');
         let price = $("[name='ar[]']", row);
+        let mul = parseFloat($("[name='ar[]']", row).attr("data-mul"));
 
         if (id === "") {
             price.val("");
@@ -15391,7 +15392,7 @@ $(window).bind("load", function () {
                 beforeSend: function () {
                 },
                 success: function (data) {
-                    price.val(data.product.ar);
+                    price.val(data.product.ar * mul);
                 }
             });
         }
@@ -15399,10 +15400,11 @@ $(window).bind("load", function () {
 
     $(document).on("click", "#newitem", function() {
         let lastItem = $("select[name='cikkID[]']:last");
+        let type = $(this).data("type");
 
         if (lastItem.val() !== "") {
             $.ajax({
-                url: '/cikkek/item/',
+                url: '/' + type + '/item/',
                 type: 'POST',
                 headers: {
                     'x-csrf-token': $('meta[name="csrf-token"]').attr('content')

@@ -12034,7 +12034,8 @@ span.text-label,
   text-decoration: none;
 }
 
-.operations button {
+.operations button,
+button.button-delete-item {
   border-radius: 50%;
 }
 

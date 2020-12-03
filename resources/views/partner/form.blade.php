@@ -6,7 +6,7 @@
             <div class="container m-auto">
                 <div class="row">
                     <div class="col-12 p-0"><h3><a href="/partnerek">Partnerek</a> ›
-                            <span class="small">@if(isset($content->email)) módosítás @else új hozzáadása @endif</span></h3></div>
+                            <span class="small">@if(isset($content)) módosítás @else új hozzáadása @endif</span></h3></div>
                 </div>
 
                 <form action="@isset($content){{ route('partner.update', array_merge(["id" => $content->partnerID], Request::query()), false) }}@else{{ route('partner.insert', Request::query(), false) }}@endisset" method="post" autocomplete="off">

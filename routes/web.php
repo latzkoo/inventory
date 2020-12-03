@@ -15,6 +15,40 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     /**
+     * Értékesítés
+     */
+    Route::group(['prefix' => 'ertekesites'], function () {
+        Route::get('/add', [
+            'uses' => 'SaleController@create',
+            'as' => 'sale.create'
+        ]);
+        Route::post('/update/{id}', [
+            'uses' => 'SaleController@update',
+            'as' => 'sale.update'
+        ]);
+        Route::get('/edit/{id}', [
+            'uses' => 'SaleController@edit',
+            'as' => 'sale.edit'
+        ]);
+        Route::get('/delete/{id}', [
+            'uses' => 'SaleController@delete',
+            'as' => 'sale.delete'
+        ]);
+        Route::post('/item', [
+            'uses' => 'SaleController@getNewItem',
+            'as' => 'purchase.newitem'
+        ]);
+        Route::post('/', [
+            'uses' => 'SaleController@insert',
+            'as' => 'sale.insert'
+        ]);
+        Route::get('/', [
+            'uses' => 'SaleController@get',
+            'as' => 'sale'
+        ]);
+    });
+
+    /**
      * Beszerzés
      */
     Route::group(['prefix' => 'beszerzes'], function () {
@@ -33,6 +67,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/delete/{id}', [
             'uses' => 'PurchaseController@delete',
             'as' => 'purchase.delete'
+        ]);
+        Route::post('/item', [
+            'uses' => 'PurchaseController@getNewItem',
+            'as' => 'purchase.newitem'
         ]);
         Route::post('/', [
             'uses' => 'PurchaseController@insert',
@@ -94,10 +132,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/get/{id}', [
             'uses' => 'ProductController@getById',
             'as' => 'product.get'
-        ]);
-        Route::post('/item', [
-            'uses' => 'ProductController@getNewItem',
-            'as' => 'purchase.newitem'
         ]);
         Route::post('/', [
             'uses' => 'ProductController@insert',
@@ -197,7 +231,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     Route::get('/', [
-        'uses' => 'MainController@index'
+        'uses' => 'SaleController@get'
     ]);
 
 });

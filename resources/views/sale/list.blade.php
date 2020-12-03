@@ -5,14 +5,14 @@
     <section class="content my-5">
         <div class="container m-auto">
             <div class="row mb-2">
-                <div class="col-6 p-0"><h3>Cikkek</h3></div>
+                <div class="col-6 p-0"><h3>Értékesítések</h3></div>
                 <div class="col-6 p-0">
                     <div class="button-add-new">
-                        <a href="/cikkek/add">
+                        <a href="/ertekesites/add">
                             <button class="btn btn-primary btn-sm">
                                 <svg width="20px" height="20px" viewBox="0 0 16 16" class="bi bi-plus mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                </svg>Új cikk</button></a>
+                                </svg>Új értékesítés</button></a>
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@
             <div class="container bg-white rounded shadow-sm px-0 py-3 mb-3">
                 <div class="row">
                     <div class="col-6 pl-3">
-                        <div class="admin-list-items"><span class="font-weight-bolder">Összesen:</span> {{ count($products) }} elem</div>
+                        <div class="admin-list-items"><span class="font-weight-bolder">Összesen:</span> {{ count($movements) }} elem</div>
                     </div>
                     <div class="col-6 pt-1 pr-3">
                         <form class="form-inline ml-md-3 mt-md-0" action="" autocomplete="off">
@@ -37,21 +37,27 @@
                 <table class="table table-hover table-sm">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Megnevezés</th>
-                        <th scope="col">Termékkód</th>
-                        <th scope="col" class="text-right">Beszerzési ár</th>
+                        <th scope="col">Bizonylatszám</th>
+                        <th scope="col">Raktár</th>
+                        <th scope="col" class="text-right">Termékek száma</th>
+                        <th scope="col" class="text-right">Összeg</th>
+                        <th scope="col" class="text-right">Hozzáadva</th>
                         <th scope="col" class="fix150 text-right">Műveletek</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($products as $product)
+                    @foreach($movements as $movement)
                         <tr>
-                            <td><a class="link-operation text-secondary" href="/cikkek/edit/{{ $product->cikkID }}">{{ $product->megnevezes }}</a></td>
-                            <td>{{ $product->termekkod }}</td>
-                            <td class="text-right">{{ \App\Util::numberFormat($product->ar) }} Ft</td>
+                            <td><a class="link-operation text-secondary" href="/ertekesites/edit/{{ $movement->mozgasID }}">{{ $movement->bizonylatszam }}</a></td>
+                            <td>{{ $movement->raktarnev }}</td>
+                            <td class="text-right">{{ $movement->termekek_szama ?
+\App\Util::numberFormat($movement->termekek_szama) : 0 }} db</td>
+                            <td class="text-right">{{ $movement->osszeg ?
+\App\Util::numberFormat($movement->osszeg) : 0 }} Ft</td>
+                            <td class="text-right">{{ $movement->kelte }}</td>
                             <td>
                                 <div class="operations">
-                                    <a href="/cikkek/edit/{{ $product->cikkID }}">
+                                    <a href="/ertekesites/edit/{{ $movement->mozgasID }}">
                                         <button type="button" class="btn btn-operations-small btn-secondary ml-1" title="Szerkesztés">
                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"></path>
@@ -60,7 +66,7 @@
                                         </button>
                                     </a>
                                     <button type="button" class="btn btn-operations-small btn-danger ml-1 button-delete" title="Törlés"
-                                            data-href="/cikkek/delete/{{ $product->cikkID }}">
+                                            data-href="/ertekesites/delete/{{ $movement->mozgasID }}">
                                         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                             <path fill-rule="evenodd" d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
                                         </svg>
@@ -86,7 +92,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Biztos, hogy törli a cikket?
+                Biztos, hogy törli a értékesítést?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Mégsem</button>

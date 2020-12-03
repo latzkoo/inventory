@@ -115,17 +115,6 @@ class ProductController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return Application|Factory|View
-     */
-    public function getNewItem(Request $request)
-    {
-        $this->data["products"] = $this->product->getList($request);
-
-        return view('purchase.newitem', $this->data);
-    }
-
-    /**
      * @param int $id
      * @return Application|RedirectResponse|Redirector
      */

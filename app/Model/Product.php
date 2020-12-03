@@ -28,8 +28,8 @@ class Product extends Model
         $sql = "SELECT * FROM cikk ";
 
         if ($request->get("q")) {
-            $sql .= " WHERE (termekkod LIKE '%".$request->get("q")."%'
-                      OR megnevezes LIKE '%".$request->get("q")."%')";
+            $sql .= " WHERE termekkod LIKE '%".$request->get("q")."%'
+                      OR megnevezes LIKE '%".$request->get("q")."%'";
         }
 
         $sql .= " ORDER BY megnevezes, termekkod ASC";

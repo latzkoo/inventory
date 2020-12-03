@@ -4,7 +4,6 @@ namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class Inventory extends Model
@@ -22,9 +21,10 @@ class Inventory extends Model
      */
     public function getList(Request &$request): array
     {
-        $query = "SELECT *, (SELECT SUM(mennyiseg)
-                  FROM raktarkeszlet
-                  WHERE raktarID=raktar.raktarID GROUP BY raktarID) AS termekek_szama
+        $query = "SELECT *, (SELECT SUM(mennyiseg) FROM raktarkeszlet
+                        WHERE raktarID=raktar.raktarID GROUP BY raktarID) AS termekek_szama,
+                    (SELECT SUM(ar * mennyiseg) FROM raktarkeszlet INNER JOIN cikk ON raktarkeszlet.cikkID = cikk.cikkID
+                        WHERE raktarID=raktar.raktarID GROUP BY raktarID) AS osszeg
                   FROM raktar ";
 
         if ($request->q)

@@ -6,7 +6,7 @@
             <div class="container m-auto">
                 <div class="row">
                     <div class="col-12 p-0"><h3><a href="/cikkek">Cikkek</a> ›
-                            <span class="small">@if(isset($content->email)) módosítás @else új hozzáadása @endif</span></h3></div>
+                            <span class="small">@if(isset($content)) módosítás @else új hozzáadása @endif</span></h3></div>
                 </div>
 
                 <form action="@isset($content){{ route('product.update', array_merge(["id" => $content->cikkID], Request::query()), false) }}@else{{ route('product.insert', Request::query(), false) }}@endisset" method="post" autocomplete="off">
@@ -42,7 +42,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group col-md-6 px-2">
-                                        <label for="ar">Ár</label>
+                                        <label for="ar">Beszerzési ár</label>
                                         <input type="text" class="form-control numeric" id="ar" name="ar" required="required"
                                                value="@if(old('ar')){{old('ar')}}@elseif(isset($content->ar)){{$content->ar}}@endif" />
                                         @if ($errors->has('ar'))

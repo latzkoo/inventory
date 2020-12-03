@@ -5,11 +5,11 @@
         <section class="content my-5">
             <div class="container m-auto">
                 <div class="row">
-                    <div class="col-12 p-0"><h3><a href="/beszerzes">Beszerzés</a> ›
+                    <div class="col-12 p-0"><h3><a href="/ertekesites">Értékesítés</a> ›
                             <span class="small">@if(isset($content)) módosítás @else új hozzáadása @endif</span></h3></div>
                 </div>
 
-                <form action="@isset($content){{ route('purchase.update', array_merge(["id" => $content->mozgasID], Request::query()), false) }}@else{{ route('purchase.insert', Request::query(), false) }}@endisset" method="post" autocomplete="off">
+                <form action="@isset($content){{ route('sale.update', array_merge(["id" => $content->mozgasID], Request::query()), false) }}@else{{ route('sale.insert', Request::query(), false) }}@endisset" method="post" autocomplete="off">
                     @csrf
 
                     <div class="container bg-white rounded shadow-sm p-3">
@@ -21,7 +21,12 @@
                                 <div class="form-row">
                                     <div class="form-group col-6 px-2">
                                         <label for="partnerID">Partner</label>
-                                        <select class="form-control" name="partnerID" id="partnerID" required="required">
+                                        @if(isset($content))
+                                            <input type="hidden" name="partnerID" value="{{ $content->partnerID }}" />
+                                        @endif
+                                        <select class="form-control" @if(!isset($content)) name="partnerID" @endif
+                                        id="partnerID" required="required"
+                                            @if(isset($content)) disabled="disabled" @endif>
                                             @if(!isset($content))
                                             <option value="">Válasszon!</option>
                                             @endif
@@ -36,7 +41,12 @@
 
                                     <div class="form-group col-6 px-2">
                                         <label for="partnerID">Raktár</label>
-                                        <select class="form-control" name="raktarID" id="raktarID" required="required">
+                                        @if(isset($content))
+                                            <input type="hidden" name="raktarID" value="{{ $content->raktarID }}" />
+                                        @endif
+                                        <select class="form-control" @if(!isset($content))name="raktarID"@endif
+                                                id="raktarID" required="required"
+                                            @if(isset($content)) disabled="disabled" @endif>
                                             @if(!isset($content))
                                             <option value="">Válasszon!</option>
                                             @endif
@@ -78,9 +88,9 @@
                                             </div>
 
                                             <div class="form-group col-md-4 px-2">
-                                                <label for="ar">Beszerzési ár</label>
+                                                <label for="ar">Eladási ár</label>
                                                 <input type="text" class="form-control numeric" id="ar" name="ar[]"
-                                                       data-mul="1" required="required" value="{{ $item->ar }}" />
+                                                       data-mul="1.2" required="required" value="{{ $item->ar }}" />
                                             </div>
 
                                             <div class="form-group col-md-<?=$i > 0 ? 3 : 4?> px-2">
@@ -114,9 +124,9 @@
                                     </div>
 
                                     <div class="form-group col-md-4 px-2">
-                                        <label for="ar">Beszerzési ár</label>
+                                        <label for="ar">Eladási ár</label>
                                         <input type="text" class="form-control numeric" id="ar" name="ar[]"
-                                               data-mul="1" required="required" />
+                                               data-mul="1.2" required="required" />
                                     </div>
 
                                     <div class="form-group col-md-4 px-2">
@@ -129,8 +139,8 @@
 
                                 <div id="newitems"></div>
                                 <div class="form-row px-2">
-                                    <button class="btn btn-sm btn-secondary" type="button"
-                                            id="newitem" data-type="beszerzes">+ cikk hozzáadása</button>
+                                    <button class="btn btn-sm btn-secondary" type="button" id="newitem"
+                                            data-type="ertekesites">+ cikk hozzáadása</button>
                                 </div>
                             </div>
                         </div>
@@ -142,11 +152,21 @@
                                 <?=isset($content) ? 'Módosítás' : 'Hozzáadás' ?></button>
                         </div>
                         <div class="col-6 col-md-3 col-lg-2 p-0 pl-2 px-md-2">
-                            <a href="/beszerzes">
+                            <a href="/ertekesites">
                                 <button type="button" class="btn btn-secondary form-main-button btn-block px-4">Mégsem</button>
                             </a>
                         </div>
                     </div>
+                    @if ($errors->has('cikkID'))
+                        <div class="row mt-4 p-0 px-2">
+                            <div class="col-12 mt-4 p-0 px-2">
+                                <div class="alert alert-danger" role="alert">
+                                    <div class="font-weight-bold">{{ $errors->first('cikkID') }}</div>
+                                    <div>Kérem, ellenőrizze a raktárkészletet!</div>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </form>
             </div>
         </section>

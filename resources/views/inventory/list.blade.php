@@ -39,6 +39,7 @@
                     <tr>
                         <th scope="col">Név</th>
                         <th scope="col" class="text-right">Termékek száma</th>
+                        <th scope="col" class="text-right">Raktár összértéke</th>
                         <th scope="col" class="fix150 text-right">Műveletek</th>
                     </tr>
                     </thead>
@@ -48,6 +49,8 @@
                             <td><a class="link-operation text-secondary" href="/raktarak/edit/{{ $inventory->raktarID }}">{{ $inventory->raktarnev }}</a></td>
                             <td class="text-right">{{ $inventory->termekek_szama ?
 \App\Util::numberFormat($inventory->termekek_szama) : 0 }} db</td>
+                            <td class="text-right">{{ $inventory->termekek_szama ?
+\App\Util::numberFormat($inventory->osszeg) : 0 }} Ft</td>
                             <td>
                                 <div class="operations">
                                     <a href="/raktarak/edit/{{ $inventory->raktarID }}">

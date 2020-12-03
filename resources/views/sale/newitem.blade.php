@@ -10,8 +10,8 @@
     </div>
 
     <div class="form-group col-md-4 px-2">
-        <label for="ar">Beszerzési ár</label>
-        <input type="text" class="form-control numeric" id="ar" name="ar[]" data-mul="1" required="required" />
+        <label for="ar">Eladási ár</label>
+        <input type="text" class="form-control numeric" id="ar" name="ar[]" data-mul="1.2" required="required" />
     </div>
 
     <div class="form-group col-md-3 px-2">

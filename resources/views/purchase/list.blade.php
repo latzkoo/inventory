@@ -38,8 +38,10 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">Bizonylatszám</th>
+                        <th scope="col">Raktár</th>
                         <th scope="col" class="text-right">Termékek száma</th>
                         <th scope="col" class="text-right">Összeg</th>
+                        <th scope="col" class="text-right">Hozzáadva</th>
                         <th scope="col" class="fix150 text-right">Műveletek</th>
                     </tr>
                     </thead>
@@ -47,10 +49,12 @@
                     @foreach($movements as $movement)
                         <tr>
                             <td><a class="link-operation text-secondary" href="/beszerzes/edit/{{ $movement->mozgasID }}">{{ $movement->bizonylatszam }}</a></td>
+                            <td>{{ $movement->raktarnev }}</td>
                             <td class="text-right">{{ $movement->termekek_szama ?
 \App\Util::numberFormat($movement->termekek_szama) : 0 }} db</td>
                             <td class="text-right">{{ $movement->osszeg ?
 \App\Util::numberFormat($movement->osszeg) : 0 }} Ft</td>
+                            <td class="text-right">{{ $movement->kelte }}</td>
                             <td>
                                 <div class="operations">
                                     <a href="/beszerzes/edit/{{ $movement->mozgasID }}">
@@ -88,7 +92,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                Biztos, hogy törli a raktárat?
+                Biztos, hogy törli a beszerzést?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Mégsem</button>
