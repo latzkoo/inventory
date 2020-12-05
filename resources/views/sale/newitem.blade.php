@@ -4,7 +4,8 @@
         <select class="form-control cikkID" name="cikkID[]" id="cikkID" required="required">
             <option value="">Válasszon!</option>
             @foreach($products as $product)
-                <option value="{{ $product->cikkID }}">{{ $product->megnevezes }}</option>
+                <option value="{{ $product->cikkID }}">
+                    {{ $product->megnevezes }} ({{ $product->mennyiseg }} db)</option>
             @endforeach
         </select>
     </div>

@@ -3,6 +3,7 @@
         <option value="">Válasszon!</option>
     @endif
     @foreach($products as $product)
-        <option value="{{ $product->cikkID }}">{{ $product->megnevezes }}</option>
+        <option value="{{ $product->cikkID }}">
+            {{ $product->megnevezes }} ({{ $product->mennyiseg }} db)</option>
     @endforeach
 </select>

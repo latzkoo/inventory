@@ -19,12 +19,12 @@ class Inventory extends Model
      * @param Request $request
      * @return array
      */
-    public function getList(Request &$request): array
+    public function getList(Request $request): array
     {
         $query = "SELECT *, (SELECT SUM(mennyiseg) FROM raktarkeszlet
                         WHERE raktarID=raktar.raktarID GROUP BY raktarID) AS termekek_szama,
                     (SELECT SUM(ar * mennyiseg) FROM raktarkeszlet INNER JOIN cikk ON raktarkeszlet.cikkID = cikk.cikkID
-                        WHERE raktarID=raktar.raktarID GROUP BY raktarID) AS osszeg
+                        WHERE raktarID=raktar.raktarID GROUP BY raktarID) AS osszertek
                   FROM raktar ";
 
         if ($request->q)
@@ -39,7 +39,7 @@ class Inventory extends Model
      * @param Request $request
      * @return bool
      */
-    public function insertInventory(Request &$request)
+    public function insertInventory(Request $request)
     {
         return DB::insert("INSERT INTO raktar (raktarnev) VALUES (?)",
             [$request->post("raktarnev")]);
@@ -50,7 +50,7 @@ class Inventory extends Model
      * @param int $id
      * @return bool|int
      */
-    public function updateInventory(Request &$request, int $id)
+    public function updateInventory(Request $request, int $id)
     {
         return DB::update("UPDATE raktar SET raktarnev=? WHERE raktarID=".$id,
             [$request->post("raktarnev")]);

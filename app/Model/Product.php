@@ -45,7 +45,12 @@ class Product extends Model
      */
     public function getList(Request &$request, int $raktarID = null, Pager $pager = null): array
     {
-        $query = "SELECT cikk.* FROM cikk ";
+        $query = "SELECT cikk.* ";
+
+        if ($raktarID)
+            $query .= ", raktarkeszlet.mennyiseg ";
+
+        $query .= " FROM cikk ";
 
         if ($raktarID) {
             $query .= " INNER JOIN raktarkeszlet ON raktarkeszlet.cikkID=cikk.cikkID AND raktarkeszlet.raktarID=".$raktarID;
@@ -55,11 +60,13 @@ class Product extends Model
                         OR cikk.megnevezes LIKE '%".$request->get("q")."%'";
         }
 
-        $query .= " ORDER BY cikk.megnevezes, cikk.termekkod ASC LIMIT ?, ?";
+        $query .= " ORDER BY cikk.megnevezes, cikk.termekkod ASC";
 
-        return DB::select($query, [$pager->getFrom(), $pager->getItems()]);
+        if ($pager)
+            $query .= " LIMIT ?, ?";
 
-        return DB::select($query);
+        return DB::select($query,
+            $pager ? [$pager->getFrom(), $pager->getItems()] : []);
     }
 
     /**

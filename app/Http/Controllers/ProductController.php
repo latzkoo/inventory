@@ -16,6 +16,8 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
+
+    private $title = "Cikkek";
     private $product;
     private $messages = [
         'termekkod.unique' => 'A megadott termékkóddal már létezik cikk!'
@@ -36,7 +38,7 @@ class ProductController extends Controller
      */
     public function get(Request $request)
 	{
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["count"] = $this->product->getCount($request);
         $this->data["pager"] = new Pager($request, $this->data["count"]);
         $this->data["products"] = $this->product->getList($request, null, $this->data["pager"]);
@@ -57,7 +59,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
 
         return view('product.form', $this->data);
     }
@@ -68,7 +70,7 @@ class ProductController extends Controller
      */
     public function edit(int $id)
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["content"] = $this->product->getById($id);
 
         return view('product.form', $this->data);

@@ -19,6 +19,8 @@ use Illuminate\View\View;
 
 class PurchaseController extends Controller
 {
+
+    private $title = "Beszerzés";
     private $movement;
     private $inventory;
     private $partner;
@@ -43,12 +45,12 @@ class PurchaseController extends Controller
      */
     public function get(Request $request)
 	{
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["count"] = $this->movement->getCount($request, $this->movementType);
         $this->data["pager"] = new Pager($request, $this->data["count"]);
         $this->data["movements"] = $this->movement->getList($request, $this->movementType, $this->data["pager"]);
 
-        return view('sale.list', $this->data);
+        return view('purchase.list', $this->data);
 	}
 
     /**
@@ -57,7 +59,7 @@ class PurchaseController extends Controller
      */
     public function create(Request $request)
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["partners"] = $this->partner->getList($request);
         $this->data["inventories"] = $this->inventory->getList($request);
         $this->data["products"] = $this->product->getList($request);
@@ -72,7 +74,7 @@ class PurchaseController extends Controller
      */
     public function edit(Request $request, int $id)
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["content"] = $this->movement->getById($id);
         $this->data["items"] = $this->movement->getItems($id);
         $this->data["partners"] = $this->partner->getList($request);

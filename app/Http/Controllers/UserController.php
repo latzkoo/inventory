@@ -17,6 +17,8 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
+
+    private $title = "Felhasználók";
     private $user;
 
     /**
@@ -34,7 +36,7 @@ class UserController extends Controller
      */
     public function get(Request $request)
 	{
-	    $this->data["meta"] = new Meta();
+	    $this->data["meta"] = new Meta($this->title);
 	    $this->data["users"] = $this->user->getList($request);
 
 		return view('user.list', $this->data);
@@ -45,7 +47,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
 
         return view('user.form', $this->data);
     }
@@ -56,7 +58,7 @@ class UserController extends Controller
      */
     public function edit(int $id)
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["content"] = $this->user->getById($id);
 
         return view('user.form', $this->data);

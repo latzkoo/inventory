@@ -82,7 +82,7 @@
                                                     @foreach($products as $product)
                                                         <option value="{{ $product->cikkID }}"
                                                         @if($item->cikkID == $product->cikkID)
-                                                        selected="selected" @endif>{{ $product->megnevezes }}</option>
+                                                        selected="selected" @endif>{{ $product->megnevezes }} ({{ $product->mennyiseg }} db)</option>
                                                     @endforeach
                                                 </select>
                                             </div>

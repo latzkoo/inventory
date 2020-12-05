@@ -50,7 +50,7 @@
                             <td class="text-right">{{ $inventory->termekek_szama ?
 \App\Util::numberFormat($inventory->termekek_szama) : 0 }} db</td>
                             <td class="text-right">{{ $inventory->termekek_szama ?
-\App\Util::numberFormat($inventory->osszeg) : 0 }} Ft</td>
+\App\Util::numberFormat($inventory->osszertek) : 0 }} Ft</td>
                             <td>
                                 <div class="operations">
                                     <a href="/raktarak/edit/{{ $inventory->raktarID }}">

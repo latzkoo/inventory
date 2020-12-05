@@ -9,12 +9,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item ml-md-3"><a class="nav-link" href="/ertekesites">Értékesítés</a></li>
-                    <li class="nav-item ml-md-3"><a class="nav-link" href="/beszerzes">Beszerzés</a></li>
-                    <li class="nav-item ml-md-3"><a class="nav-link" href="/cikkek">Cikkek</a></li>
-                    <li class="nav-item ml-md-3"><a class="nav-link" href="/raktarak">Raktárak</a></li>
-                    <li class="nav-item ml-md-3"><a class="nav-link" href="/partnerek">Partnerek</a></li>
-                    <li class="nav-item ml-md-3"><a class="nav-link" href="/felhasznalok">Felhasználók</a></li>
+                    <li class="nav-item ml-md-3">
+                        <a class="nav-link<?=!Request::segment(1) || Request::segment(1) == "ertekesites" ? ' active' : ''?>" href="/ertekesites">Értékesítés</a></li>
+                    <li class="nav-item ml-md-3">
+                        <a class="nav-link<?=Request::segment(1) == "beszerzes" ? ' active' : ''?>" href="/beszerzes">Beszerzés</a></li>
+                    <li class="nav-item ml-md-3">
+                        <a class="nav-link<?=Request::segment(1) == "cikkek" ? ' active' : ''?>" href="/cikkek">Cikkek</a></li>
+                    <li class="nav-item ml-md-3">
+                        <a class="nav-link<?=Request::segment(1) == "raktarak" ? ' active' : ''?>" href="/raktarak">Raktárak</a></li>
+                    <li class="nav-item ml-md-3">
+                        <a class="nav-link<?=Request::segment(1) == "partnerek" ? ' active' : ''?>" href="/partnerek">Partnerek</a></li>
+                    <li class="nav-item ml-md-3">
+                        <a class="nav-link<?=Request::segment(1) == "felhasznalok" ? ' active' : ''?>" href="/felhasznalok">Felhasználók</a></li>
                     <li class="nav-item dropdown ml-md-3">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown02" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">Fiókom</a>

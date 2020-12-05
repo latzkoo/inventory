@@ -15,6 +15,7 @@ use Illuminate\View\View;
 
 class InventoryController extends Controller
 {
+    private $title = "Raktárak";
     private $inventory;
     private $messages = [
         'raktarnev.unique' => 'A megadott névvel már létezik raktár!'
@@ -35,7 +36,7 @@ class InventoryController extends Controller
      */
     public function get(Request $request)
 	{
-	    $this->data["meta"] = new Meta();
+	    $this->data["meta"] = new Meta($this->title);
 	    $this->data["inventories"] = $this->inventory->getList($request);
 
 		return view('inventory.list', $this->data);
@@ -46,7 +47,7 @@ class InventoryController extends Controller
      */
     public function create()
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
 
         return view('inventory.form', $this->data);
     }
@@ -57,7 +58,7 @@ class InventoryController extends Controller
      */
     public function edit(int $id)
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["content"] = $this->inventory->getById($id);
 
         return view('inventory.form', $this->data);

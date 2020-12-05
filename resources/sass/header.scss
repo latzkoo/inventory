@@ -6,7 +6,8 @@ header a {
     color: #fff;
 }
 
-header a:hover {
+.navbar-expand-md .navbar-nav .nav-link:hover,
+.navbar-expand-md .navbar-nav .nav-link.active {
     color: #007bff;
 }
 

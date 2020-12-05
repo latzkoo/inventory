@@ -14,6 +14,7 @@ use Illuminate\View\View;
 
 class PartnerController extends Controller
 {
+    private $title = "Partnerek";
     private $partner;
 
     /**
@@ -31,7 +32,7 @@ class PartnerController extends Controller
      */
     public function get(Request $request)
 	{
-	    $this->data["meta"] = new Meta();
+	    $this->data["meta"] = new Meta($this->title);
 	    $this->data["partners"] = $this->partner->getList($request);
 
 		return view('partner.list', $this->data);
@@ -42,7 +43,7 @@ class PartnerController extends Controller
      */
     public function create()
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
 
         return view('partner.form', $this->data);
     }
@@ -53,7 +54,7 @@ class PartnerController extends Controller
      */
     public function edit(int $id)
     {
-        $this->data["meta"] = new Meta();
+        $this->data["meta"] = new Meta($this->title);
         $this->data["content"] = $this->partner->getById($id);
 
         return view('partner.form', $this->data);
