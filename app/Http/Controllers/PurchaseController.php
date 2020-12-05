@@ -7,6 +7,7 @@ use App\Model\Partner;
 use App\Model\Product;
 use App\Model\Movement;
 use App\Model\Meta;
+use App\Pager;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -42,10 +43,12 @@ class PurchaseController extends Controller
      */
     public function get(Request $request)
 	{
-	    $this->data["meta"] = new Meta();
-	    $this->data["movements"] = $this->movement->getList($request, $this->movementType);
+        $this->data["meta"] = new Meta();
+        $this->data["count"] = $this->movement->getCount($request, $this->movementType);
+        $this->data["pager"] = new Pager($request, $this->data["count"]);
+        $this->data["movements"] = $this->movement->getList($request, $this->movementType, $this->data["pager"]);
 
-		return view('purchase.list', $this->data);
+        return view('sale.list', $this->data);
 	}
 
     /**

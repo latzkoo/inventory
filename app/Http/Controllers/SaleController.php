@@ -7,6 +7,7 @@ use App\Model\Partner;
 use App\Model\Product;
 use App\Model\Movement;
 use App\Model\Meta;
+use App\Pager;
 use App\Rules\MovementItemRule;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -44,7 +45,9 @@ class SaleController extends Controller
     public function get(Request $request)
 	{
 	    $this->data["meta"] = new Meta();
-	    $this->data["movements"] = $this->movement->getList($request, $this->movementType);
+        $this->data["count"] = $this->movement->getCount($request, $this->movementType);
+	    $this->data["pager"] = new Pager($request, $this->data["count"]);
+        $this->data["movements"] = $this->movement->getList($request, $this->movementType, $this->data["pager"]);
 
 		return view('sale.list', $this->data);
 	}
@@ -58,7 +61,6 @@ class SaleController extends Controller
         $this->data["meta"] = new Meta();
         $this->data["partners"] = $this->partner->getList($request);
         $this->data["inventories"] = $this->inventory->getList($request);
-        $this->data["products"] = $this->product->getList($request);
 
         return view('sale.form', $this->data);
     }
@@ -75,7 +77,7 @@ class SaleController extends Controller
         $this->data["items"] = $this->movement->getItems($id);
         $this->data["partners"] = $this->partner->getList($request);
         $this->data["inventories"] = $this->inventory->getList($request);
-        $this->data["products"] = $this->product->getList($request);
+        $this->data["products"] = $this->product->getList($request, $this->data["content"]->raktarID);
 
         return view('sale.form', $this->data);
     }
@@ -125,7 +127,7 @@ class SaleController extends Controller
      */
     public function getNewItem(Request $request)
     {
-        $this->data["products"] = $this->product->getList($request);
+        $this->data["products"] = $this->product->getList($request, $request->post("inventory_id"));
 
         return view('sale.newitem', $this->data);
     }

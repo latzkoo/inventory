@@ -15401,6 +15401,7 @@ $(window).bind("load", function () {
     $(document).on("click", "#newitem", function() {
         let lastItem = $("select[name='cikkID[]']:last");
         let type = $(this).data("type");
+        let inventoryID = parseInt($("#inventory").val());
 
         if (lastItem.val() !== "") {
             $.ajax({
@@ -15409,7 +15410,9 @@ $(window).bind("load", function () {
                 headers: {
                     'x-csrf-token': $('meta[name="csrf-token"]').attr('content')
                 },
-                data: {},
+                data: {
+                    inventory_id: inventoryID
+                },
                 dataType: 'text',
                 beforeSend: function () {
                 },
@@ -15425,6 +15428,24 @@ $(window).bind("load", function () {
 
     $(document).on("click", ".button-delete-item", function() {
         $(this).closest('.movement-item').remove();
+    });
+
+    $(document).on("change", "#inventory", function() {
+        let id = $(this).val();
+
+        if (id !== "") {
+            $.ajax({
+                url: '/cikkek/list/' + id,
+                type: 'GET',
+                data: {},
+                dataType: 'text',
+                beforeSend: function () {
+                },
+                success: function (data) {
+                    $(".product-holder").html(data);
+                }
+            });
+        }
     });
 
 });

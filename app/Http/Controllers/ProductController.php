@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Product;
 use App\Model\Meta;
+use App\Pager;
 use App\Rules\ProductCodeRule;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -35,11 +36,21 @@ class ProductController extends Controller
      */
     public function get(Request $request)
 	{
-	    $this->data["meta"] = new Meta();
-	    $this->data["products"] = $this->product->getList($request);
+        $this->data["meta"] = new Meta();
+        $this->data["count"] = $this->product->getCount($request);
+        $this->data["pager"] = new Pager($request, $this->data["count"]);
+        $this->data["products"] = $this->product->getList($request, null, $this->data["pager"]);
 
 		return view('product.list', $this->data);
+
 	}
+
+    public function getByInventoryId(Request $request, int $id)
+    {
+        $this->data["products"] = $this->product->getList($request, $id);
+
+        return view('product.productlist', $this->data);
+    }
 
     /**
      * @return Application|Factory|View

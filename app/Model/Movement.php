@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Pager;
 use App\Util;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +25,30 @@ class Movement extends Model
      * @param string $type
      * @return array
      */
-    public function getList(Request &$request, string $type): array
+    public function getCount(Request &$request, string $type): int
+    {
+        $query = "SELECT COUNT(*) AS count FROM raktarmozgas WHERE tipus = ?";
+
+        if ($request->get("q")) {
+            $query .= " AND bizonylatszam LIKE '%".$request->get("q")."%'";
+        }
+
+        $count = DB::select($query, [$type]);
+
+        if ($count)
+            return $count[0]->count;
+
+        return 0;
+    }
+
+    /**
+     * @param Request $request
+     * @param string $type
+     * @param int|null $from
+     * @param int $items
+     * @return array
+     */
+    public function getList(Request &$request, string $type, Pager $pager): array
     {
         $query = "SELECT raktarmozgas.*, raktar.raktarnev, (SELECT SUM(mennyiseg) FROM tartalmazza
                     WHERE mozgasID=raktarmozgas.mozgasID) AS termekek_szama,
@@ -38,9 +62,9 @@ class Movement extends Model
             $query .= " AND bizonylatszam LIKE '%".$request->get("q")."%'";
         }
 
-        $query .= " ORDER BY kelte DESC";
+        $query .= " ORDER BY kelte DESC LIMIT ?, ?";
 
-        return DB::select($query, [$type]);
+        return DB::select($query, [$type, $pager->getFrom(), $pager->getItems()]);
     }
 
     /**

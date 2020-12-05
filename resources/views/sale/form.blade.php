@@ -40,12 +40,12 @@
                                     </div>
 
                                     <div class="form-group col-6 px-2">
-                                        <label for="partnerID">Raktár</label>
+                                        <label for="inventory">Raktár</label>
                                         @if(isset($content))
                                             <input type="hidden" name="raktarID" value="{{ $content->raktarID }}" />
                                         @endif
                                         <select class="form-control" @if(!isset($content))name="raktarID"@endif
-                                                id="raktarID" required="required"
+                                                id="inventory" required="required"
                                             @if(isset($content)) disabled="disabled" @endif>
                                             @if(!isset($content))
                                             <option value="">Válasszon!</option>
@@ -113,14 +113,11 @@
                                 <div class="form-row movement-item">
                                     <div class="form-group col-md-4 px-2">
                                         <label for="partnerID">Cikk</label>
-                                        <select class="form-control cikkID" name="cikkID[]" id="cikkID" required="required">
-                                            @if(!isset($content))
-                                            <option value="">Válasszon!</option>
-                                            @endif
-                                            @foreach($products as $product)
-                                                <option value="{{ $product->cikkID }}">{{ $product->megnevezes }}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="product-holder">
+                                            <select class="form-control cikkID" name="cikkID[]" id="cikkID" required="required">
+                                                <option value="">Válasszon raktárat!</option>
+                                            </select>
+                                        </div>
                                     </div>
 
                                     <div class="form-group col-md-4 px-2">

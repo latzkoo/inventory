@@ -70,22 +70,6 @@
                     </tbody>
                 </table>
             </div>
-
-{{--            <div class="container bg-transparent px-0 pt-3">--}}
-{{--                <div class="row">--}}
-{{--                    <div class="col-12 pt-1 pl-0">--}}
-{{--                        <nav class="ml-auto">--}}
-{{--                            <ul class="pagination pagination-sm justify-content-center">--}}
-{{--                                <li class="page-item disabled"><a class="page-link" href="/felhasznalok?page=1">‹</a></li>--}}
-{{--                                <li class="page-item"><a class="page-link" href="/felhasznalok?page=1">1</a></li>--}}
-{{--                                <li class="page-item active"><a class="page-link" href="/felhasznalok?page=2">2</a></li>--}}
-{{--                                <li class="page-item"><a class="page-link" href="/felhasznalok?page=3">3</a></li>--}}
-{{--                                <li class="page-item"><a class="page-link" href="/felhasznalok?page=3">›</a></li>--}}
-{{--                            </ul>--}}
-{{--                        </nav>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
         </div>
     </section>
 </main>

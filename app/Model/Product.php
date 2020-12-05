@@ -2,9 +2,9 @@
 
 namespace App\Model;
 
+use App\Pager;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class Product extends Model
@@ -17,24 +17,49 @@ class Product extends Model
         'ar'
     ];
 
+    /**
+     * @param Request $request
+     * @return int
+     */
+    public function getCount(Request &$request): int
+    {
+        $query = "SELECT COUNT(*) AS count FROM cikk";
+
+        if ($request->get("q")) {
+            $query .= " WHERE cikk.termekkod LIKE '%".$request->get("q")."%'
+                        OR cikk.megnevezes LIKE '%".$request->get("q")."%'";
+        }
+
+        $count = DB::select($query);
+
+        if ($count)
+            return $count[0]->count;
+
+        return 0;
+    }
 
     /**
      * @param Request $request
-     * @param array|null $except
+     * @param int|null $raktarID
      * @return array
      */
-    public function getList(Request &$request): array
+    public function getList(Request &$request, int $raktarID = null, Pager $pager = null): array
     {
-        $sql = "SELECT * FROM cikk ";
+        $query = "SELECT cikk.* FROM cikk ";
 
-        if ($request->get("q")) {
-            $sql .= " WHERE termekkod LIKE '%".$request->get("q")."%'
-                      OR megnevezes LIKE '%".$request->get("q")."%'";
+        if ($raktarID) {
+            $query .= " INNER JOIN raktarkeszlet ON raktarkeszlet.cikkID=cikk.cikkID AND raktarkeszlet.raktarID=".$raktarID;
+        }
+        elseif ($request->get("q")) {
+            $query .= " WHERE cikk.termekkod LIKE '%".$request->get("q")."%'
+                        OR cikk.megnevezes LIKE '%".$request->get("q")."%'";
         }
 
-        $sql .= " ORDER BY megnevezes, termekkod ASC";
+        $query .= " ORDER BY cikk.megnevezes, cikk.termekkod ASC LIMIT ?, ?";
 
-        return DB::select($sql);
+        return DB::select($query, [$pager->getFrom(), $pager->getItems()]);
+
+        return DB::select($query);
     }
 
     /**

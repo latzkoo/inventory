@@ -129,6 +129,10 @@ Route::group(['middleware' => 'auth'], function () {
             'uses' => 'ProductController@delete',
             'as' => 'product.delete'
         ]);
+        Route::get('/list/{id}', [
+            'uses' => 'ProductController@getByInventoryId',
+            'as' => 'product.list'
+        ]);
         Route::get('/get/{id}', [
             'uses' => 'ProductController@getById',
             'as' => 'product.get'

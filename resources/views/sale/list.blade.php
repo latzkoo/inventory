@@ -20,7 +20,7 @@
             <div class="container bg-white rounded shadow-sm px-0 py-3 mb-3">
                 <div class="row">
                     <div class="col-6 pl-3">
-                        <div class="admin-list-items"><span class="font-weight-bolder">Összesen:</span> {{ count($movements) }} elem</div>
+                        <div class="admin-list-items"><span class="font-weight-bolder">Összesen:</span> {{ ($count) }} elem</div>
                     </div>
                     <div class="col-6 pt-1 pr-3">
                         <form class="form-inline ml-md-3 mt-md-0" action="" autocomplete="off">
@@ -78,6 +78,7 @@
                     </tbody>
                 </table>
             </div>
+            @include("layouts.pager")
         </div>
     </section>
 </main>
