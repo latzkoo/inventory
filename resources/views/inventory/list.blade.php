@@ -26,12 +26,31 @@
                         <form class="form-inline ml-md-3 mt-md-0" action="" autocomplete="off">
                             <div class="input-group-sm ml-auto">
                                 <input class="form-control search-input" type="search" placeholder="Keresés"
-                                       aria-label="Keresés" name="q" value="<?=Request::get("q") ? Request::get("q") : "" ?>" autocomplete="off" />
+                                       aria-label="Keresés" name="q"
+                                       value="<?=Request::get("q") ? Request::get("q") : "" ?>" autocomplete="off" />
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
+
+            @if (Request::get('success'))
+                <div class="row p-0">
+                    <div class="col-12 p-0">
+                        <div class="alert alert-success" role="alert">
+                            <div class="font-weight-bold">A raktár törlése sikeres.</div>
+                        </div>
+                    </div>
+                </div>
+            @elseif (Request::get('error'))
+                <div class="row p-0">
+                    <div class="col-12 p-0">
+                        <div class="alert alert-danger" role="alert">
+                            <div class="font-weight-bold">Használatban lévő raktár nem törölhető!</div>
+                        </div>
+                    </div>
+                </div>
+            @endif
 
             <div class="container bg-white rounded shadow-sm p-3">
                 <table class="table table-hover table-sm">

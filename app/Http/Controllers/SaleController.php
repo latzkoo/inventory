@@ -9,6 +9,7 @@ use App\Model\Movement;
 use App\Model\Meta;
 use App\Pager;
 use App\Rules\MovementItemRule;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -140,9 +141,13 @@ class SaleController extends Controller
      */
     public function delete(int $id)
     {
-        $this->movement->deleteMovement($id, $this->movementType);
-
-        return redirect('/ertekesites');
+        try {
+            $this->movement->deleteMovement($id, $this->movementType);
+            return redirect('/ertekesites?success=1');
+        }
+        catch (Exception $e) {
+            return redirect('/ertekesites?error=1');
+        }
     }
 
 }

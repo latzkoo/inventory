@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Model\Inventory;
 use App\Model\Meta;
 use App\Rules\InventoryRule;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -107,9 +108,13 @@ class InventoryController extends Controller
      */
     public function delete(int $id)
     {
-        $this->inventory->deleteById($id);
-
-        return redirect('/raktarak');
+        try {
+            $this->inventory->deleteById($id);
+            return redirect('/raktarak?success=1');
+        }
+        catch (Exception $e) {
+            return redirect('/raktarak?error=1');
+        }
     }
 
 }

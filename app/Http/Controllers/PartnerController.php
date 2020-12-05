@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Model\Meta;
 use App\Model\Partner;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -111,9 +112,13 @@ class PartnerController extends Controller
      */
     public function delete(int $id)
     {
-        $this->partner->deleteById($id);
-
-        return redirect('/partnerek');
+        try {
+            $this->partner->deleteById($id);
+            return redirect('/partnerek?success=1');
+        }
+        catch (Exception $e) {
+            return redirect('/partnerek?error=1');
+        }
     }
 
 }

@@ -33,6 +33,24 @@
                 </div>
             </div>
 
+            @if (Request::get('success'))
+                <div class="row p-0">
+                    <div class="col-12 p-0">
+                        <div class="alert alert-success" role="alert">
+                            <div class="font-weight-bold">A partner törlése sikeres.</div>
+                        </div>
+                    </div>
+                </div>
+            @elseif (Request::get('error'))
+                <div class="row p-0">
+                    <div class="col-12 p-0">
+                        <div class="alert alert-danger" role="alert">
+                            <div class="font-weight-bold">Használatban lévő partner nem törölhető!</div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="container bg-white rounded shadow-sm p-3">
                 <table class="table table-hover table-sm">
                     <thead class="thead-dark">

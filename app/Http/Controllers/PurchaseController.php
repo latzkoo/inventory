@@ -8,6 +8,7 @@ use App\Model\Product;
 use App\Model\Movement;
 use App\Model\Meta;
 use App\Pager;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -140,9 +141,13 @@ class PurchaseController extends Controller
      */
     public function delete(int $id)
     {
-        $this->movement->deleteMovement($id, $this->movementType);
-
-        return redirect('/beszerzes');
+        try {
+            $this->movement->deleteMovement($id, $this->movementType);
+            return redirect('/beszerzes?success=1');
+        }
+        catch (Exception $e) {
+            return redirect('/beszerzes?error=1');
+        }
     }
 
 }

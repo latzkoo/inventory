@@ -6,6 +6,7 @@ use App\Model\Product;
 use App\Model\Meta;
 use App\Pager;
 use App\Rules\ProductCodeRule;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -133,9 +134,13 @@ class ProductController extends Controller
      */
     public function delete(int $id)
     {
-        $this->product->deleteById($id);
-
-        return redirect('/cikkek');
+        try {
+            $this->product->deleteById($id);
+            return redirect('/cikkek?success=1');
+        }
+        catch (Exception $e) {
+            return redirect('/cikkek?error=1');
+        }
     }
 
 }
