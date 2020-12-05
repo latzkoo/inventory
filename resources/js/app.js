@@ -47,7 +47,7 @@ $(window).bind("load", function () {
 
         if (lastItem.val() !== "") {
             $.ajax({
-                url: '/' + type + '/item/',
+                url: '/' + type + '/item',
                 type: 'POST',
                 headers: {
                     'x-csrf-token': $('meta[name="csrf-token"]').attr('content')

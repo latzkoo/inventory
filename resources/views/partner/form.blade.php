@@ -68,7 +68,7 @@
 
                                     <div class="form-group col-6 px-2">
                                         <label for="telepules">Házszám</label>
-                                        <input type="text" class="form-control" id="hazszam" name="hazszam"
+                                        <input type="text" class="form-control numeric" id="hazszam" name="hazszam"
                                                value="@if(old('hazszam')){{old('hazszam')}}@elseif(isset($content->hazszam)){{$content->hazszam}}@endif" />
                                         @if ($errors->has('hazszam'))
                                             <label class="col-red mt-1 text-danger">{{ $errors->first('hazszam') }}</label>

@@ -5,7 +5,7 @@
         <section class="login col-12 my-auto px-3">
             <div class="brand text-center mb-3"><span>R</span>aktár</div>
             <div class="container bg-white rounded shadow-sm p-4">
-                <form action="/login/" method="post">
+                <form action="/login" method="post">
                     @csrf
                     <div class="wrapper mx-auto">
                         <div class="col-12 m-auto order-md-1 form-block px-0 pt-3">
